@@ -1,0 +1,148 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Do_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Do_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a Newton Method application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Is_Checking_Accuracy
+    COMMAND ${APPLICATION} EXPONENT
+)
+set_tests_properties (${prefix}_Is_Checking_Accuracy PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: No accuracy!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Is_Checking_Bounds
+    COMMAND ${APPLICATION} EXPONENT 0.01 0
+)
+set_tests_properties (${prefix}_Is_Checking_Bounds PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: No bounds!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Is_Checking_Any_Coefficients
+    COMMAND ${APPLICATION} EXPONENT 0.01 0 1
+)
+set_tests_properties (${prefix}_Is_Checking_Any_Coefficients PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: No coefficients"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Is_Checking_Coefficients
+    COMMAND ${APPLICATION} EXPONENT 0.01 0 1 1
+)
+set_tests_properties (${prefix}_Is_Checking_Coefficients PROPERTIES
+    PASS_REGULAR_EXPRESSION "Mismatch in the number of arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} EXPONENT 0.01 pi phi
+)
+set_tests_properties (${prefix}_Can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Detect_Wrong_Function_Format
+    COMMAND ${APPLICATION} EXP 0.01 0 1 2 3 4
+)
+set_tests_properties (${prefix}_Can_Detect_Wrong_Function_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Function doesn't exist"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Detect_Zero_As_First_Coeff
+    COMMAND ${APPLICATION} EXPONENT 0.01 0 1 0 3 4
+)
+set_tests_properties (${prefix}_Can_Detect_Zero_As_First_Coeff PROPERTIES
+    PASS_REGULAR_EXPRESSION "First coefficient can't be zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Detect_No_Monotone_Function
+    COMMAND ${APPLICATION} POLINOMIAL_2_DEGREE 0.01 -4 4 2 1 -6
+)
+set_tests_properties (${prefix}_Can_Detect_No_Monotone_Function PROPERTIES
+    PASS_REGULAR_EXPRESSION "Function is not monotone or it is a point"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Detect_If_Segment_Is_Point
+    COMMAND ${APPLICATION} POLINOMIAL_2_DEGREE 0.01 4 4 2 1 -6
+)
+set_tests_properties (${prefix}_Can_Detect_If_Segment_Is_Point PROPERTIES
+    PASS_REGULAR_EXPRESSION "Function is not monotone or it is a point"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Detect_If_Function_Hasnt_Roots
+    COMMAND ${APPLICATION} POLINOMIAL_2_DEGREE 0.01 3 4 2 1 -6
+)
+set_tests_properties (${prefix}_Can_Detect_If_Function_Hasnt_Roots PROPERTIES
+    PASS_REGULAR_EXPRESSION "There are no roots on the segment"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Find_Root_On_Polinomial_2_Degree
+    COMMAND ${APPLICATION} POLINOMIAL_2_DEGREE 0.01 0 2 2 1 -6
+)
+set_tests_properties (${prefix}_Can_Find_Root_On_Polinomial_2_Degree PROPERTIES
+    PASS_REGULAR_EXPRESSION "Root: 1.5"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Find_Root_On_Polinomial_3_Degree
+    COMMAND ${APPLICATION} POLINOMIAL_3_DEGREE 0.01 3 6 1 -1 -16 16
+)
+set_tests_properties (${prefix}_Can_Find_Root_On_Polinomial_3_Degree PROPERTIES
+    PASS_REGULAR_EXPRESSION "Root: 4"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Find_Root_On_Polinomial_4_Degree
+    COMMAND ${APPLICATION} POLINOMIAL_4_DEGREE 0.01 2.5 3.5 1 1 -9 -9 0
+)
+set_tests_properties (${prefix}_Can_Find_Root_On_Polinomial_4_Degree PROPERTIES
+    PASS_REGULAR_EXPRESSION "Root: 3"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Find_Root_On_Exponent
+    COMMAND ${APPLICATION} EXPONENT 0.01 -1 1 1 2 -1
+)
+set_tests_properties (${prefix}_Can_Find_Root_On_Exponent PROPERTIES
+    PASS_REGULAR_EXPRESSION "Root: 0"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Low_Accuracy_Affect_On_Result
+    COMMAND ${APPLICATION} EXPONENT 0.01 0 0.5 1 2.5 -2
+)
+set_tests_properties (${prefix}_Low_Accuracy_Affect_On_Result PROPERTIES
+    PASS_REGULAR_EXPRESSION "Root: 0.277272"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Hi_Accuracy_Affect_On_Result
+    COMMAND ${APPLICATION} EXPONENT 0.0001 0 0.5 1 2.5 -2
+)
+set_tests_properties (${prefix}_Hi_Accuracy_Affect_On_Result PROPERTIES
+    PASS_REGULAR_EXPRESSION "Root: 0.277259"
+    LABELS "${MODULE}")

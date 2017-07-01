@@ -1,0 +1,68 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+ 
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a square converter application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 Meter
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 3 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} area Meter Meter
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Area_Format
+    COMMAND ${APPLICATION} 10 Meter NoArea
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Area_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong area format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Convert_With_Equal_Types
+    COMMAND ${APPLICATION} 10 Meter Meter
+)
+set_tests_properties (${prefix}_can_Convert_With_Equal_Types PROPERTIES
+    PASS_REGULAR_EXPRESSION "Converted area size:10"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Convert_With_Not_Equal_Types
+    COMMAND ${APPLICATION} 1 Meter Centimeter
+)
+set_tests_properties (${prefix}_can_Convert_With_Not_Equal_Types PROPERTIES
+    PASS_REGULAR_EXPRESSION "Converted area size:10000"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Area_Size
+    COMMAND ${APPLICATION} -10 Meter Meter
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Area_Size PROPERTIES
+    PASS_REGULAR_EXPRESSION "It is impossible to work with negative area"
+    LABELS "${MODULE}")

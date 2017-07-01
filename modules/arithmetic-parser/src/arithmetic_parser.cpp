@@ -93,7 +93,7 @@ bool ArithmeticParser::Evaluate(double x, double *result) const {
 
     stack<double> nums;
     size_t rpn_size = rpn_.size();
-    if (rpn_size == 0) return 0.0;
+    if (rpn_size == 0) return false;
 
     for (size_t i = 0; i < rpn_size; i++) {
         const Token &token = rpn_[i];

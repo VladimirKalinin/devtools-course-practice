@@ -1,0 +1,68 @@
+#############################################
+##### Testing
+#############################################
+
+enable_testing()
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments
+  PROPERTIES PASS_REGULAR_EXPRESSION "This is a mortgage calculator application")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 50 10
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments
+  PROPERTIES PASS_REGULAR_EXPRESSION "ERROR: Should be 3 arguments.")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_Double
+    COMMAND ${APPLICATION} 10.9q 3 20
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_Double
+  PROPERTIES PASS_REGULAR_EXPRESSION "Wrong number format!")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_Int
+    COMMAND ${APPLICATION} 10.9 3q 20
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_Int
+  PROPERTIES PASS_REGULAR_EXPRESSION "Wrong number format!")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Mortgage
+    COMMAND ${APPLICATION} 2500000 300 11
+)
+set_tests_properties (${prefix}_can_Calculate_Mortgage
+  PROPERTIES PASS_REGULAR_EXPRESSION "Monthly payment : 24502.8")
+  
+add_test(
+    NAME ${prefix}_can_Detect_Invalid_Amount
+    COMMAND ${APPLICATION} -1 3 20
+)
+set_tests_properties (${prefix}_can_Detect_Invalid_Amount
+  PROPERTIES PASS_REGULAR_EXPRESSION "Amount was entered incorrectly")
+  
+add_test(
+    NAME ${prefix}_can_Detect_Invalid_Period
+    COMMAND ${APPLICATION} 1 -3 20
+)
+set_tests_properties (${prefix}_can_Detect_Invalid_Period
+  PROPERTIES PASS_REGULAR_EXPRESSION "Period was entered incorrectly")
+  
+add_test(
+    NAME ${prefix}_can_Detect_Invalid_Interest
+    COMMAND ${APPLICATION} 1 3 -20
+)
+set_tests_properties (${prefix}_can_Detect_Invalid_Interest
+  PROPERTIES PASS_REGULAR_EXPRESSION "Interest was entered incorrectly")

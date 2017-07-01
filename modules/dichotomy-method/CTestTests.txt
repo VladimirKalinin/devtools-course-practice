@@ -1,0 +1,76 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a method of dichotomy application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 2 *
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "Error: Should be 4 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} 1 asd 2 1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_Func
+    COMMAND ${APPLICATION} 1 2 0.01 1.1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_Func PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Findmin_L_Border_Func_1_Is_Correct
+    COMMAND ${APPLICATION} 0 1 0.01 1
+)
+set_tests_properties (${prefix}_can_Findmin_L_Border_Func_1_Is_Correct PROPERTIES
+    PASS_REGULAR_EXPRESSION "Min = 0.00390625"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Findmin_R_Border_Func_1_Is_Correct
+    COMMAND ${APPLICATION} -1 0 0.01 1
+)
+set_tests_properties (${prefix}_can_Findmin_R_Border_Func_1_Is_Correct PROPERTIES
+    PASS_REGULAR_EXPRESSION "Min = -0.00390625"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Findmin_L_Border_Func_2_Is_Correct
+    COMMAND ${APPLICATION} 0 1 0.01 2
+)
+set_tests_properties (${prefix}_can_Findmin_L_Border_Func_2_Is_Correct PROPERTIES
+    PASS_REGULAR_EXPRESSION "Min = 0.75"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Findmin_R_Border_Func_2_Is_Correct
+    COMMAND ${APPLICATION} -1 0 0.01 2
+)
+set_tests_properties (${prefix}_can_Findmin_R_Border_Func_2_Is_Correct PROPERTIES
+    PASS_REGULAR_EXPRESSION "Min = -0.00390625"
+LABELS "${MODULE}")

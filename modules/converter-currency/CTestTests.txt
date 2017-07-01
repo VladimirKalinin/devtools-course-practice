@@ -1,0 +1,84 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a converter currency application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 USD RUR
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 5 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} money USD RUR 0 0
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Currency_Format
+    COMMAND ${APPLICATION} 10 USD rub 0 0
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Currency_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong currency format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Convert_Money_With_Default_Coefficient
+    COMMAND ${APPLICATION} 10 RUR RUR 0 0
+)
+set_tests_properties (${prefix}_can_Convert_Money_With_Default_Coefficient PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result of convertation = 10"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Convert_Money_With_New_Coefficient
+    COMMAND ${APPLICATION} 10 USD RUR 10 0
+)
+set_tests_properties (${prefix}_can_Convert_Money_With_New_Coefficient PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result of convertation = 100"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Coefficient
+    COMMAND ${APPLICATION} 10 USD RUR 0 -1
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Coefficient PROPERTIES
+    PASS_REGULAR_EXPRESSION "Convert coefficient has to be more than 0"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Money_Size
+    COMMAND ${APPLICATION} -10 USD RUR 0 0
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Money_Size PROPERTIES
+    PASS_REGULAR_EXPRESSION "Money size can't be negative"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Convert_With_Zero_Money_Size
+    COMMAND ${APPLICATION} 0 USD RUR 0 0
+)
+set_tests_properties (${prefix}_can_Convert_With_Zero_Money_Size PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result of convertation = 0"
+    LABELS "${MODULE}")

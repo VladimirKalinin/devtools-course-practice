@@ -1,0 +1,66 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties(${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}"
+    WILL_FAIL TRUE)
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a aritmetic parser"
+    LABELS "${MODULE}"
+    WILL_FAIL TRUE)
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} "x" 2 3
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 2 arguments."
+    LABELS "${MODULE}"
+    WILL_FAIL TRUE)
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} "x" one
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}"
+    WILL_FAIL TRUE)
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Operation_Format
+    COMMAND ${APPLICATION} "(" 1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Operation_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong operation format!"
+    LABELS "${MODULE}"
+    WILL_FAIL TRUE)
+
+add_test(
+    NAME ${prefix}_can_Print_Result_of_Simple_Expression
+    COMMAND ${APPLICATION} "2 * 2"
+)
+set_tests_properties (${prefix}_can_Print_Result_of_Simple_Expression PROPERTIES
+    PASS_REGULAR_EXPRESSION "4"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Result_of_Expression_With_Parameter
+    COMMAND ${APPLICATION} "104 + x" 42
+)
+set_tests_properties (${prefix}_can_Print_Result_of_Expression_With_Parameter
+    PROPERTIES
+    PASS_REGULAR_EXPRESSION "146"
+    LABELS "${MODULE}")

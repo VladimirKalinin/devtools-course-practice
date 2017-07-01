@@ -1,0 +1,228 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is an area calculator application for tgree dimensional figures."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} Sphere 1 2
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: wrong number of arguments!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Figure_Format
+    COMMAND ${APPLICATION} asd 1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Figure_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong figure format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calc_Sphere
+    COMMAND ${APPLICATION} Sphere 1
+)
+set_tests_properties (${prefix}_can_Calc_Sphere PROPERTIES
+    PASS_REGULAR_EXPRESSION "S = 12.5664"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calc_Pyramid
+    COMMAND ${APPLICATION} Pyramid 1 1 1
+)
+set_tests_properties (${prefix}_can_Calc_Pyramid PROPERTIES
+    PASS_REGULAR_EXPRESSION "S = 2.73205"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calc_Cone
+    COMMAND ${APPLICATION} Cone 1 1
+)
+set_tests_properties (${prefix}_can_Calc_Cone PROPERTIES
+    PASS_REGULAR_EXPRESSION "S = 3.14159"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calc_Cube
+    COMMAND ${APPLICATION} Cube 1
+)
+set_tests_properties (${prefix}_can_Calc_Cube PROPERTIES
+    PASS_REGULAR_EXPRESSION "S = 6"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calc_Cylinder
+    COMMAND ${APPLICATION} Cylinder 1 1
+)
+set_tests_properties (${prefix}_can_Calc_Cylinder PROPERTIES
+    PASS_REGULAR_EXPRESSION "S = 6.28319"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calc_Parallelepiped
+    COMMAND ${APPLICATION} Parallelepiped 1 1 1
+)
+set_tests_properties (${prefix}_can_Calc_Parallelepiped PROPERTIES
+    PASS_REGULAR_EXPRESSION "S = 6"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calc_Prism
+    COMMAND ${APPLICATION} Prism 1 1 1 1
+)
+set_tests_properties (${prefix}_can_Calc_Prism PROPERTIES
+    PASS_REGULAR_EXPRESSION "S = 3.86603"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calc_Tetra
+    COMMAND ${APPLICATION} Tetra 1 1 1 1
+)
+set_tests_properties (${prefix}_can_Calc_Tetra PROPERTIES
+    PASS_REGULAR_EXPRESSION "S = 1.73205"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Argument_With_Sphere
+    COMMAND ${APPLICATION} Sphere -1
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Argument_With_Sphere PROPERTIES
+    PASS_REGULAR_EXPRESSION "r <== 0"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Argument_With_Pyramid
+    COMMAND ${APPLICATION} Pyramid -1 1 1
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Argument_With_Pyramid PROPERTIES
+    PASS_REGULAR_EXPRESSION "Parameters are negative"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Argument_With_Cone
+    COMMAND ${APPLICATION} Cone -1 1
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Argument_With_Cone PROPERTIES
+    PASS_REGULAR_EXPRESSION "Parameters are negative"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Argument_With_Cube
+    COMMAND ${APPLICATION} Cube -1
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Argument_With_Cube PROPERTIES
+    PASS_REGULAR_EXPRESSION "h <= 0"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Argument_With_Cylinder
+    COMMAND ${APPLICATION} Cylinder -1 1
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Argument_With_Cylinder PROPERTIES
+    PASS_REGULAR_EXPRESSION "Parameters are negative"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Argument_With_Parallelepiped
+    COMMAND ${APPLICATION} Parallelepiped -1 1 1
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Argument_With_Parallelepiped PROPERTIES
+    PASS_REGULAR_EXPRESSION "Parameters are negative"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Argument_With_Prism
+    COMMAND ${APPLICATION} Prism -1 1 1 1
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Argument_With_Prism PROPERTIES
+    PASS_REGULAR_EXPRESSION "Parameters are negative"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Argument_With_Tetra
+    COMMAND ${APPLICATION} Tetra -1 1 1 1
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Argument_With_Tetra PROPERTIES
+    PASS_REGULAR_EXPRESSION "Parameters are negative"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_With_Sphere
+    COMMAND ${APPLICATION} Sphere ip
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_With_Sphere PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_With_Pyramid
+    COMMAND ${APPLICATION} Pyramid ip 1 1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_With_Pyramid PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_With_Cone
+    COMMAND ${APPLICATION} Cone ip 1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_With_Cone PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_With_Cube
+    COMMAND ${APPLICATION} Cube ip
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_With_Cube PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_With_Cylinder
+    COMMAND ${APPLICATION} Cylinder ip 1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_With_Cylinder PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_With_Parallelepiped
+    COMMAND ${APPLICATION} Parallelepiped ip 1 1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_With_Parallelepiped PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_With_Prism
+    COMMAND ${APPLICATION} Prism ip 1 1 1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_With_Prism PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_With_Tetra
+    COMMAND ${APPLICATION} Tetra ip 1 1 1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_With_Tetra PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")

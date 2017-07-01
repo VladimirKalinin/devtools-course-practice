@@ -1,0 +1,150 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+	
+add_test(
+    NAME ${prefix}_Do_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Do_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a statistical moments calculator"
+    LABELS "${MODULE}")
+
+	
+add_test(
+    NAME ${prefix}_Can_Handle_Wrong_Number_Of_Arguments_Case1
+    COMMAND ${APPLICATION} -exp -v 1
+)
+set_tests_properties (${prefix}_Can_Handle_Wrong_Number_Of_Arguments_Case1 PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: too few arguments"
+    LABELS "${MODULE}")
+	
+	
+add_test(
+    NAME ${prefix}_Can_Handle_Wrong_Number_Of_Arguments_Case2
+    COMMAND ${APPLICATION} -moment -v 1 -p 2
+)
+set_tests_properties (${prefix}_Can_Handle_Wrong_Number_Of_Arguments_Case2 PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: too few arguments"
+    LABELS "${MODULE}")
+
+	
+add_test(
+    NAME ${prefix}_Can_Handle_Wrong_Order
+    COMMAND ${APPLICATION} -moment one 2 -v 1 -p 0.2
+)
+set_tests_properties (${prefix}_Can_Handle_Wrong_Order PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: unrecognized argument one"
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_Can_Handle_Wrong_Offset
+    COMMAND ${APPLICATION} -moment 1 two -v 1 -p 0.2
+)
+set_tests_properties (${prefix}_Can_Handle_Wrong_Offset PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: unrecognized argument two"
+    LABELS "${MODULE}")
+	
+	
+add_test(
+    NAME ${prefix}_Can_Handle_Negative_Argument
+    COMMAND ${APPLICATION} -moment 1 -2 -v 1 -prob 0.1
+)
+set_tests_properties (${prefix}_Can_Handle_Negative_Argument PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: specified value -2 is less than zero"
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_Can_Handle_Wrong_Probs_Argument
+    COMMAND ${APPLICATION} -exp -v 1 -prob 0.1
+)
+set_tests_properties (${prefix}_Can_Handle_Wrong_Probs_Argument PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: unrecognized argument -prob"
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_Can_Handle_Wrong_Values_Argument
+    COMMAND ${APPLICATION} -exp -val 1 -p 0.3
+)
+set_tests_properties (${prefix}_Can_Handle_Wrong_Values_Argument PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: unrecognized argument -val"
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_Can_Handle_Wrong_Lists_Length
+    COMMAND ${APPLICATION} -disp -v 1 2 -p 0.5
+)
+set_tests_properties (${prefix}_Can_Handle_Wrong_Lists_Length PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: values and probabilities lists must have the same length"
+    LABELS "${MODULE}")
+
+	
+add_test(
+    NAME ${prefix}_Can_Handle_Aborted_List
+    COMMAND ${APPLICATION} -disp -v 1 2 3
+)
+set_tests_properties (${prefix}_Can_Handle_Aborted_List PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: two few arguments"
+    LABELS "${MODULE}")
+	
+
+add_test(
+    NAME ${prefix}_Can_Handle_Wrong_Operation
+    COMMAND ${APPLICATION} -n -v 1 -p 0.4
+)
+set_tests_properties (${prefix}_Can_Handle_Wrong_Operation PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: unrecognized argument -n"
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_Can_Handle_Wrong_Probs
+    COMMAND ${APPLICATION} -exp -v 1 -p 1.2
+)
+set_tests_properties (${prefix}_Can_Handle_Wrong_Probs PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: One of chances is out of range"
+    LABELS "${MODULE}")
+	
+	
+add_test(
+    NAME ${prefix}_Can_Calc_Expectancy
+    COMMAND ${APPLICATION} -exp -v 1.2 2.4 3.1 -p 0.1 0.4 0.5
+)
+set_tests_properties (${prefix}_Can_Calc_Expectancy PROPERTIES
+    PASS_REGULAR_EXPRESSION "2.63"
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_Can_Calc_Dispersion
+    COMMAND ${APPLICATION} -disp -v 2.1 1.43 33.3
+                            2.56 -p 0.2 0.1 0.3 0.4
+)
+set_tests_properties (${prefix}_Can_Calc_Dispersion PROPERTIES
+    PASS_REGULAR_EXPRESSION "202.348"
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_Can_Calc_Custom_Moment
+    COMMAND ${APPLICATION} -moment 3 1488 -v 1.1 1.3 3.3
+                           2.6 -p 0.4 0.2 0.1 0.3
+)
+set_tests_properties (${prefix}_Can_Calc_Custom_Moment PROPERTIES
+    PASS_REGULAR_EXPRESSION "-3282641043.9377"
+    LABELS "${MODULE}")
+

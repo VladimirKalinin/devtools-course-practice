@@ -1,0 +1,236 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a temperature converter app"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} C 2.5
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 3 arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} C 1,0 F
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Operation_Format
+    COMMAND ${APPLICATION} Celsius 1.0 F
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Operation_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Celsius_To_Fahrenheit
+    COMMAND ${APPLICATION} C 26.0 F
+)
+set_tests_properties (${prefix}_Can_Convert_Celsius_To_Fahrenheit PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 78.8"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Celsius_To_Newton_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} C -274.0 N
+)
+set_tests_properties (${prefix}_Cant_Convert_Celsius_To_Newton_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Celsius_To_Fahrenheit_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} C -274.0 F
+)
+set_tests_properties (${prefix}_Cant_Convert_Celsius_To_Fahrenheit_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Celsius_To_Kelvin_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} C -274.0 K
+)
+set_tests_properties (${prefix}_Cant_Convert_Celsius_To_Kelvin_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Celsius_To_Newton
+    COMMAND ${APPLICATION} C 26.0 N
+)
+set_tests_properties (${prefix}_Can_Convert_Celsius_To_Newton PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 8.58"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Can_Convert_Celsius_To_Kelvin
+    COMMAND ${APPLICATION} C 26.0 K
+)
+set_tests_properties (${prefix}_Can_Can_Convert_Celsius_To_Kelvin PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 299.15"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Kelvin_To_Newton
+    COMMAND ${APPLICATION} K 26.0 N
+)
+set_tests_properties (${prefix}_Can_Convert_Kelvin_To_Newton PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = -81.5595"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Kelvin_To_Celsius
+    COMMAND ${APPLICATION} K 26.0 C
+)
+set_tests_properties (${prefix}_Can_Convert_Kelvin_To_Celsius PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = -247.15"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Kelvin_To_Fahrenheit
+    COMMAND ${APPLICATION} K 26.0 F
+)
+set_tests_properties (${prefix}_Can_Convert_Kelvin_To_Fahrenheit PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = -412.87"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Newton_To_Kelvin
+    COMMAND ${APPLICATION} N 26.0 K
+)
+set_tests_properties (${prefix}_Can_Convert_Newton_To_Kelvin PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 351.938"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Newton_To_Celsius
+    COMMAND ${APPLICATION} N 26.0 C
+)
+set_tests_properties (${prefix}_Can_Convert_Newton_To_Celsius PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 78.7879"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Newton_To_Fahrenheit
+    COMMAND ${APPLICATION} N 26.0 F
+)
+set_tests_properties (${prefix}_Can_Convert_Newton_To_Fahrenheit PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 173.818"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Fahrenheit_To_Kelvin
+    COMMAND ${APPLICATION} F 26.0 K
+)
+set_tests_properties (${prefix}_Can_Convert_Fahrenheit_To_Kelvin PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 269.817"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Fahrenheit_To_Newton
+    COMMAND ${APPLICATION} F 26.0 N
+)
+set_tests_properties (${prefix}_Can_Convert_Fahrenheit_To_Newton PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = -1.1"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Fahrenheit_To_Celsius
+    COMMAND ${APPLICATION} F 26.0 C
+)
+set_tests_properties (${prefix}_Can_Convert_Fahrenheit_To_Celsius PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = -3.33333"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Fahrenheit_To_Newton_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} F -460.0 N
+)
+set_tests_properties (${prefix}_Cant_Convert_Fahrenheit_To_Newton_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Fahrenheit_To_Celsius_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} F -460.0 C
+)
+set_tests_properties (${prefix}_Cant_Convert_Fahrenheit_To_Celsius_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Fahrenheit_To_Kelvin_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} F -460.0 K
+)
+set_tests_properties (${prefix}_Cant_Convert_Fahrenheit_To_Kelvin_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Newton_To_Celsius_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} N -91.0 C
+)
+set_tests_properties (${prefix}_Cant_Convert_Newton_To_Celsius_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Newton_To_Fahrenheit_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} N -91.0 F
+)
+set_tests_properties (${prefix}_Cant_Convert_Newton_To_Fahrenheit_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Newton_To_Kelvin_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} N -91.0 K
+)
+set_tests_properties (${prefix}_Cant_Convert_Newton_To_Kelvin_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Kelvin_To_Newton_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} K -1.0 N
+)
+set_tests_properties (${prefix}_Cant_Convert_Kelvin_To_Newton_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Kelvin_To_Fahrenheit_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} K -1.0 F
+)
+set_tests_properties (${prefix}_Cant_Convert_Kelvin_To_Fahrenheit_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Convert_Kelvin_To_Celsius_Temeprature_Less_Than_Absolute_Zero
+    COMMAND ${APPLICATION} K -1.0 C
+)
+set_tests_properties (${prefix}_Cant_Convert_Kelvin_To_Celsius_Temeprature_Less_Than_Absolute_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "Temperature can't be less than absolute zero"
+    LABELS "${MODULE}")

@@ -1,0 +1,252 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Do_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Do_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a color converter application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Not_Five_Arguments
+    COMMAND ${APPLICATION} 1
+)
+set_tests_properties (${prefix}_Not_Five_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 5 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Correct_Create_HSBHSV
+    COMMAND ${APPLICATION} 1 2 3 HSV RGB
+)
+set_tests_properties (${prefix}_Correct_Create_HSBHSV PROPERTIES
+    PASS_REGULAR_EXPRESSION "to RGB"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_Correct_Create_RGB
+    COMMAND ${APPLICATION} 1 2 3 RGB RGB
+)
+set_tests_properties (${prefix}_Correct_Create_RGB PROPERTIES
+    PASS_REGULAR_EXPRESSION "to RGB"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_Correct_Create_LAB
+    COMMAND ${APPLICATION} 1 2 3 LAB RGB
+)
+set_tests_properties (${prefix}_Correct_Create_LAB PROPERTIES
+    PASS_REGULAR_EXPRESSION "to RGB"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_Correct_Create_XYZ
+    COMMAND ${APPLICATION} 1 2 3 XYZ RGB
+)
+set_tests_properties (${prefix}_Correct_Create_XYZ PROPERTIES
+    PASS_REGULAR_EXPRESSION "to RGB"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_HSBHSV_to_HSBHSV
+    COMMAND ${APPLICATION} 1 2 3 HSV HSV
+)
+set_tests_properties (${prefix}_HSBHSV_to_HSBHSV PROPERTIES
+    PASS_REGULAR_EXPRESSION "to HSBHSV"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_RGB_to_HSBHSV
+    COMMAND ${APPLICATION} 1 2 3 RGB HSV
+)
+set_tests_properties (${prefix}_RGB_to_HSBHSV PROPERTIES
+    PASS_REGULAR_EXPRESSION "to HSBHSV"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_LAB_to_HSBHSV
+    COMMAND ${APPLICATION} 1 2 3 LAB HSV
+)
+set_tests_properties (${prefix}_LAB_to_HSBHSV PROPERTIES
+    PASS_REGULAR_EXPRESSION "to HSBHSV"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_XYZ_to_HSBHSV
+    COMMAND ${APPLICATION} 1 2 3 XYZ HSV
+)
+set_tests_properties (${prefix}_XYZ_to_HSBHSV PROPERTIES
+    PASS_REGULAR_EXPRESSION "to HSBHSV"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_HSBHSV_to_LAB
+    COMMAND ${APPLICATION} 1 2 3 HSV LAB
+)
+set_tests_properties (${prefix}_HSBHSV_to_LAB PROPERTIES
+    PASS_REGULAR_EXPRESSION "to LAB"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_RGB_to_LAB
+    COMMAND ${APPLICATION} 1 2 3 RGB LAB
+)
+set_tests_properties (${prefix}_RGB_to_LAB PROPERTIES
+    PASS_REGULAR_EXPRESSION "to LAB"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_LAB_to_LAB
+    COMMAND ${APPLICATION} 1 2 3 LAB LAB
+)
+set_tests_properties (${prefix}_LAB_to_LAB PROPERTIES
+    PASS_REGULAR_EXPRESSION "to LAB"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_HSBHSV_to_XYZ
+    COMMAND ${APPLICATION} 1 2 3 HSV XYZ
+)
+set_tests_properties (${prefix}_HSBHSV_to_XYZ PROPERTIES
+    PASS_REGULAR_EXPRESSION "to XYZ"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_RGB_to_XYZ
+    COMMAND ${APPLICATION} 1 2 3 RGB XYZ
+)
+set_tests_properties (${prefix}_RGB_to_XYZ PROPERTIES
+    PASS_REGULAR_EXPRESSION "to XYZ"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_LAB_to_XYZ
+    COMMAND ${APPLICATION} 1 2 3 LAB XYZ
+)
+set_tests_properties (${prefix}_LAB_to_XYZ PROPERTIES
+    PASS_REGULAR_EXPRESSION "to XYZ"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_Wrong_Hue_HSBHSV
+    COMMAND ${APPLICATION} 400 2 3 HSV RGB
+)
+set_tests_properties (${prefix}_Wrong_Hue_HSBHSV PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of hue not in the range 0-360"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Wrong_Saturation_HSBHSV
+    COMMAND ${APPLICATION} 1 400 3 HSV RGB
+)
+set_tests_properties (${prefix}_Wrong_Saturation_HSBHSV PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of saturation not in the range 0-100"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Wrong_Brightnes_HSBHSV
+    COMMAND ${APPLICATION} 1 2 400 HSV RGB
+)
+set_tests_properties (${prefix}_Wrong_Brightnes_HSBHSV PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of brightnes not in the range 0-100"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Wrong_Lightness_LAB
+    COMMAND ${APPLICATION} 400 2 3 LAB RGB
+)
+set_tests_properties (${prefix}_Wrong_Lightness_LAB PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of lightness isn't in the range 0-100"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Wrong_A_Color_LAB
+    COMMAND ${APPLICATION} 1 400 3 LAB RGB
+)
+set_tests_properties (${prefix}_Wrong_A_Color_LAB PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of a color isn't in the range 0-128"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Wrong_B_Color_LAB
+    COMMAND ${APPLICATION} 1 2 400 LAB RGB
+)
+set_tests_properties (${prefix}_Wrong_B_Color_LAB PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of b color isn't in the range 0-128"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Wrong_R_RGB
+    COMMAND ${APPLICATION} 400 2 3 RGB HSV
+)
+set_tests_properties (${prefix}_Wrong_R_RGB PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of red color isn't in the range 0-255"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Wrong_G_RGB
+    COMMAND ${APPLICATION} 1 400 3 RGB HSV
+)
+set_tests_properties (${prefix}_Wrong_G_RGB PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of green color isn't in the range 0-255"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_Wrong_B_RGB
+    COMMAND ${APPLICATION} 1 2 400 RGB HSV
+)
+set_tests_properties (${prefix}_Wrong_B_RGB PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of blue color isn't in the range 0-255"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_Wrong_X_XYZ
+    COMMAND ${APPLICATION} 400 2 3 XYZ RGB
+)
+set_tests_properties (${prefix}_Wrong_X_XYZ PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of x isn't in the range 0-95"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_Wrong_Y_XYZ
+    COMMAND ${APPLICATION} 1 400 3 XYZ RGB
+)
+set_tests_properties (${prefix}_Wrong_Y_XYZ PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of y isn't in the range 0-100"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_Wrong_Z_XYZ
+    COMMAND ${APPLICATION} 1 2 400 XYZ RGB
+)
+set_tests_properties (${prefix}_Wrong_Z_XYZ PROPERTIES
+    PASS_REGULAR_EXPRESSION "The index of z isn't in the range 0-108"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_Wrong_Convert_Type
+    COMMAND ${APPLICATION} 1 2 3 HSV asd
+)
+set_tests_properties (${prefix}_Wrong_Convert_Type PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong type"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_Wrong_Input_Type
+    COMMAND ${APPLICATION} 1 2 3 asd HSV
+)
+set_tests_properties (${prefix}_Wrong_Convert_Type PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong type"
+    LABELS "${MODULE}")

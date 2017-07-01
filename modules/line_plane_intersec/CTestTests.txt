@@ -1,0 +1,92 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is an application of calculating the intersection"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 2
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 10 or 15 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_Case1
+    COMMAND ${APPLICATION} 1 qe 2 4 5 5 2 7 1 0
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_Case1 PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_Case2
+    COMMAND ${APPLICATION} 1 qe 2 4 5 5 2 7 1 0 6 -4 2 9 1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_Case2 PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Calculate_Intersection_Case1
+    COMMAND ${APPLICATION} -3 0 -2 -1 -3 3 1 -2 -1 3
+)
+set_tests_properties (${prefix}_Can_Calculate_Intersection_Case1 PROPERTIES
+    PASS_REGULAR_EXPRESSION "coordinates of intersection point:\n x: -2\n y: 3\n z: -5"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Calculate_Intersection_Case2
+    COMMAND ${APPLICATION} -3 0 -2 -4 -3 1 -3 0 0 0 0 3 0 1 1
+)
+set_tests_properties (${prefix}_Can_Calculate_Intersection_Case2 PROPERTIES
+    PASS_REGULAR_EXPRESSION "coordinates of intersection point:\n x: -2\n y: 3\n z: -5"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Line_And_Plane_Are_Parallel
+    COMMAND ${APPLICATION} 1 -2 2 2 3 -4 1 6 5 4
+)
+set_tests_properties (${prefix}_Line_And_Plane_Are_Parallel PROPERTIES
+    PASS_REGULAR_EXPRESSION "Line and plane are parallel or line lies in plane"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Line_Lies_In_Plane
+    COMMAND ${APPLICATION} 0 5 -1 3 -2 4 2 -3 -3 12
+)
+set_tests_properties (${prefix}_Line_Lies_In_Plane PROPERTIES
+    PASS_REGULAR_EXPRESSION "Line and plane are parallel or line lies in plane"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Incorrect_Input_When_Set_Line_With_2_Points
+    COMMAND ${APPLICATION} 0 0 0 0 0 0 -3 0 0 0 0 3 0 1 1
+)
+set_tests_properties (${prefix}_Incorrect_Input_When_Set_Line_With_2_Points PROPERTIES
+    PASS_REGULAR_EXPRESSION "Incorrect input"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Incorrect_Input_When_Set_Plane_With_3_Points
+    COMMAND ${APPLICATION} -3 0 -2 -4 -3 1 0 0 0 0 0 0 0 1 1
+)
+set_tests_properties (${prefix}_Incorrect_Input_When_Set_Plane_With_3_Points PROPERTIES
+    PASS_REGULAR_EXPRESSION "Incorrect input"
+    LABELS "${MODULE}")

@@ -1,0 +1,60 @@
+﻿#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_Do_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Do_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a quadratic equation application"
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_Can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 2
+)
+set_tests_properties (${prefix}_Can_Check_Number_Of_Arguments
+  PROPERTIES PASS_REGULAR_EXPRESSION "ERROR: Should be 3 arguments.")
+
+
+add_test(
+    NAME ${prefix}_Can_Detect_Wrong_Coefficient_Argument
+    COMMAND ${APPLICATION} 0 1 2 
+)
+set_tests_properties (${prefix}_Can_Detect_Wrong_Coefficient_Argument
+  PROPERTIES PASS_REGULAR_EXPRESSION "Wrong number format!")
+
+add_test(
+    NAME ${prefix}_Can_Get_Two_Real_Solutions
+    COMMAND ${APPLICATION} 1 4 3
+)
+set_tests_properties (${prefix}_Can_Get_Two_Real_Solutions
+  PROPERTIES PASS_REGULAR_EXPRESSION "x1 = -1 x2 = -3")
+
+add_test(
+    NAME ${prefix}_Can_Get_One_Real_Solution
+    COMMAND ${APPLICATION} 1 4 4
+)
+set_tests_properties (${prefix}_Can_Get_One_Real_Solution
+  PROPERTIES PASS_REGULAR_EXPRESSION "x = -2")
+
+add_test(
+    NAME ${prefix}_Can_Get_Two_Complex_Solutions
+    COMMAND ${APPLICATION} 1 2 2
+)
+set_tests_properties (${prefix}_Can_Get_Two_Complex_Solutions
+  PROPERTIES PASS_REGULAR_EXPRESSION "This equation hasn't solution")
+
+

@@ -1,0 +1,97 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_Do_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Do_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a weight converter application"
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_Can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 20 'KG'
+)
+set_tests_properties (${prefix}_Can_Check_Number_Of_Arguments
+  PROPERTIES PASS_REGULAR_EXPRESSION "ERROR: Should be 3 arguments.")
+
+
+add_test(
+    NAME ${prefix}_Can_Detect_Wrong_Weight_Argument
+    COMMAND ${APPLICATION} -20 'KG' 'G'
+)
+set_tests_properties (${prefix}_Can_Detect_Wrong_Weight_Argument
+  PROPERTIES PASS_REGULAR_EXPRESSION "Wrong number format!")
+
+add_test(
+    NAME ${prefix}_Can_Detect_Wrong_Weight_Type_Argument
+    COMMAND ${APPLICATION} 20 'Í„' 'G'
+)
+set_tests_properties (${prefix}_Can_Detect_Wrong_Weight_Type_Argument
+  PROPERTIES PASS_REGULAR_EXPRESSION "Wrong weight's type format!")
+
+add_test(
+    NAME ${prefix}_Can_Convert_From_MG_To_G
+    COMMAND ${APPLICATION} 10 MG G
+)
+set_tests_properties (${prefix}_Can_Convert_From_MG_To_G
+  PROPERTIES PASS_REGULAR_EXPRESSION "Weight = 0.01")
+
+add_test(
+    NAME ${prefix}_Can_Convert_From_KG_To_G
+    COMMAND ${APPLICATION} 20 KG G
+)
+set_tests_properties (${prefix}_Can_Convert_From_KG_To_G
+  PROPERTIES PASS_REGULAR_EXPRESSION "Weight = 20000")
+
+add_test(
+    NAME ${prefix}_Can_Convert_From_KG_To_GR
+    COMMAND ${APPLICATION} 20 KG GR
+)
+set_tests_properties (${prefix}_Can_Convert_From_KG_To_GR
+  PROPERTIES PASS_REGULAR_EXPRESSION "Weight = 308647")
+
+
+add_test(
+    NAME ${prefix}_Can_Convert_From_KG_To_OZ
+    COMMAND ${APPLICATION} 20 KG OZ
+)
+set_tests_properties (${prefix}_Can_Convert_From_KG_To_OZ
+  PROPERTIES PASS_REGULAR_EXPRESSION "Weight = 705.48")
+
+
+add_test(
+    NAME ${prefix}_Can_Convert_From_KG_To_DR
+    COMMAND ${APPLICATION} 20 KG DR
+)
+set_tests_properties (${prefix}_Can_Convert_From_KG_To_DR
+  PROPERTIES PASS_REGULAR_EXPRESSION "Weight = 11287.6")
+
+
+add_test(
+    NAME ${prefix}_Can_Convert_From_KG_To_LB
+    COMMAND ${APPLICATION} 20 KG LB
+)
+set_tests_properties (${prefix}_Can_Convert_From_KG_To_LB
+  PROPERTIES PASS_REGULAR_EXPRESSION "Weight = 44.0925")
+
+
+add_test(
+    NAME ${prefix}_Can_Convert_From_KG_To_CR
+    COMMAND ${APPLICATION} 20 KG CR
+)
+set_tests_properties (${prefix}_Can_Convert_From_KG_To_CR
+  PROPERTIES PASS_REGULAR_EXPRESSION "Weight = 100000")

@@ -1,0 +1,66 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+  NAME ${prefix}_can_Run
+  COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_can_Run PROPERTIES
+	TIMEOUT 100 
+  LABELS "${MODULE}")
+
+add_test(
+  NAME ${prefix}_can_Print_Help_Without_Arguments
+  COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+	TIMEOUT 100 
+  PASS_REGULAR_EXPRESSION "This is a interpolation search app.*"
+  LABELS "${MODULE}")
+
+add_test(
+  NAME ${prefix}_can_Check_Number_Of_Arguments
+  COMMAND ${APPLICATION} 1
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+	TIMEOUT 100 
+  PASS_REGULAR_EXPRESSION "ERROR: Should be at least 2 arguments.*"
+  LABELS "${MODULE}")
+
+add_test(
+  NAME ${prefix}_can_Detect_Wrong_Number_Format
+  COMMAND ${APPLICATION} 1 a
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+	TIMEOUT 100 
+  PASS_REGULAR_EXPRESSION "ERROR: Wrong number format.*"
+  LABELS "${MODULE}")
+  
+add_test(
+  NAME ${prefix}_can_Detect_Unsorted_Array
+  COMMAND ${APPLICATION} 3 2 1 1
+)
+set_tests_properties (${prefix}_can_Detect_Unsorted_Array PROPERTIES
+	TIMEOUT 100 
+  PASS_REGULAR_EXPRESSION "ERROR: Array is unsorted.*"
+  LABELS "${MODULE}")
+
+add_test(
+  NAME ${prefix}_Search_Return_Missing
+  COMMAND ${APPLICATION} 1 2 3 4
+)
+set_tests_properties (${prefix}_Search_Return_Missing PROPERTIES
+  PASS_REGULAR_EXPRESSION "Result = -1.*"
+  LABELS "${MODULE}")
+
+add_test(
+  NAME ${prefix}_Search_Return_Mid
+  COMMAND ${APPLICATION} 1 2 3 2
+)
+set_tests_properties (${prefix}_Search_Return_Mid PROPERTIES
+  PASS_REGULAR_EXPRESSION "Result = 1.*"
+  LABELS "${MODULE}")

@@ -1,0 +1,84 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a Integration Methods application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} "x+5" 0 1
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 5 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_For_Double
+    COMMAND ${APPLICATION} "x+5" fk54 1 "r" 200
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_For_Double PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_For_Integer
+    COMMAND ${APPLICATION} "x+5" 0 1 "r" j98405gj
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_For_Integer PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Method_Name
+    COMMAND ${APPLICATION} "x+5" 0 1 "fgjoti" 200
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Method_Name PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong method name!"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Integrand
+    COMMAND ${APPLICATION} "j903(g4" 0 1 "r" 200
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Integrand PROPERTIES
+    PASS_REGULAR_EXPRESSION "Invalid input"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Integrate_Integrand_By_Rectangle_Method
+    COMMAND ${APPLICATION} "x*x*x*x" 0 1 "r" 50
+)
+set_tests_properties (${prefix}_can_Integrate_Integrand_By_Rectangle_Method PROPERTIES
+    PASS_REGULAR_EXPRESSION "The integration value of rectangle method equals 0.2"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_can_Integrate_Integrand_By_Trapezoid_Method
+    COMMAND ${APPLICATION} "x*x*x*x" 0 1 "t" 50
+)
+set_tests_properties (${prefix}_can_Integrate_Integrand_By_Trapezoid_Method PROPERTIES
+    PASS_REGULAR_EXPRESSION "The integration value of trapezoid method equals 0.2"
+    LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}_can_Integrate_Integrand_By_Simpson_Method
+    COMMAND ${APPLICATION} "x*x*x*x" 0 1 "s" 1e-6
+)
+set_tests_properties (${prefix}_can_Integrate_Integrand_By_Simpson_Method PROPERTIES
+    PASS_REGULAR_EXPRESSION "The integration value of Simpson method equals 0.2"
+    LABELS "${MODULE}")
