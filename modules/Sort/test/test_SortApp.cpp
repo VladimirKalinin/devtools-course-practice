@@ -88,16 +88,6 @@ TEST_F(SortAppTest, Can_Sort_Array_From_File) {
   Assert("Sorted array: 2 23 38");
 }
 
-TEST_F(SortAppTest, Can_Detect_Wrong_Element_Format_From_File) {
-  std::ofstream ofs("input.txt");
-  ofs << "23 rtt 2";
-  ofs.close();
-  std::vector<string> args = { "3", "1", "2", "1", "input.txt" };
-  Act(args);
-  std::remove("input.txt");
-  Assert("Wrong number format!.*");
-}
-
 TEST_F(SortAppTest, Can_Detect_Wrong_Number_Format) {
     vector<string> args = {"2", "1", "blblbl", "1"};
     Act(args);
