@@ -88,16 +88,32 @@ TEST_F(SortAppTest, Can_Sort_Array_From_File) {
   Assert("Sorted array: 2 23 38");
 }
 
-TEST_F(SortAppTest, Can_Sort_In_The_Descending_Order) {
-  std::vector<string> args = { "3", "1", "1", "2", "1", "3", "2" };
+TEST_F(SortAppTest, Can_Detect_Wrong_Element_Format_From_File) {
+  std::ofstream ofs("input.txt");
+  ofs << "23 rtt 2";
+  ofs.close();
+  std::vector<string> args = { "3", "1", "2", "1", "input.txt" };
   Act(args);
-  Assert("Sorted array: 3 2 1");
+  std::remove("input.txt");
+  Assert("Wrong number format!.*");
 }
 
 TEST_F(SortAppTest, Can_Detect_Wrong_Number_Format) {
     vector<string> args = {"2", "1", "blblbl", "1"};
     Act(args);
     Assert("Wrong number format!.*");
+}
+
+TEST_F(SortAppTest, Can_Detect_Wrong_Order_Format) {
+  vector<string> args = { "3", "4", "1", "ert", "1", "2", "3" };
+  Act(args);
+  Assert("Wrong number format!.*");
+}
+
+TEST_F(SortAppTest, Can_Detect_Wrong_Element_Format) {
+  vector<string> args = { "3", "4", "1", "1", "1", "ert", "3" };
+  Act(args);
+  Assert("Wrong number format!.*");
 }
 
 TEST_F(SortAppTest, Can_Detect_Wrong_Number_Function) {
@@ -146,4 +162,34 @@ TEST_F(SortAppTest, Merge_Sort_Correct) {
     Act(args);
 
     Assert("Sorted array: 1 2 3");
+}
+
+TEST_F(SortAppTest, Quick_Sort_Correct_Decrease_Order) {
+  vector<string> args = { "3", "1", "1", "2", "1", "3", "2" };
+  Act(args);
+  Assert("Sorted array: 3 2 1");
+}
+
+TEST_F(SortAppTest, Paste_Sort_Correct_Decrease_Order) {
+  vector<string> args = { "3", "2", "1", "2", "1", "3", "2" };
+
+  Act(args);
+
+  Assert("Sorted array: 3 2 1");
+}
+
+TEST_F(SortAppTest, Choice_Sort_Correct_Decrease_Order) {
+  vector<string> args = { "3", "3", "1", "2", "1", "3", "2" };
+
+  Act(args);
+
+  Assert("Sorted array: 3 2 1");
+}
+
+TEST_F(SortAppTest, Merge_Sort_Correct_Decrease_Order) {
+  vector<string> args = { "3", "4", "1", "2", "1", "3", "2" };
+
+  Act(args);
+
+  Assert("Sorted array: 3 2 1");
 }
