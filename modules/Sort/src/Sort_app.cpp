@@ -23,7 +23,7 @@ void SortApp::help(const char* appname, const char* message) {
 
     " <array_elem_length>\n" +
     "or\n" +
-    " $ " + appname + 
+    " $ " + appname +
     " <length_> <sort_type_> <mode <order_> <file_with_array.txt path>\n\n" +
 
     "Where all arguments is a int-precision numbers, " +
@@ -167,9 +167,9 @@ std::string SortApp::operator()(int argc, const char** argv) {
       return str;
     }
   } else {
-    if (!validateFileOpen(argv))
+    if (!validateFileOpen(argv)) {
       return message_;
-    else {
+    } else {
     args.path_ = std::string(argv[5]);
     std::ifstream fin(args.path_);
       try {
@@ -186,12 +186,12 @@ std::string SortApp::operator()(int argc, const char** argv) {
 
   std::ostringstream stream;
   Sort sort1(args.array_, args.length_);
-  float fTimeStart = static_cast<float>(clock() / (float)CLOCKS_PER_SEC);
+  float fTimeStart = clock() / static_cast<float>(CLOCKS_PER_SEC);
   switch (args.sort_type_) {
   case 1:
     sort1.QuickSort(0, args.length_ - 1);
     stream << "Sorted array: ";
-    if (args.order_ == 1){
+    if (args.order_ == 1) {
       for (int i = 0; i < args.length_; i++)
         stream << sort1[i] << " ";
     } else {
@@ -208,8 +208,7 @@ std::string SortApp::operator()(int argc, const char** argv) {
     if (args.order_ == 1) {
       for (int i = 0; i < args.length_; i++)
         stream << sort1[i] << " ";
-    }
-    else {
+    } else {
       for (int i = args.length_ - 1; i >= 0; i--)
         stream << sort1[i] << " ";
     }
@@ -238,8 +237,7 @@ std::string SortApp::operator()(int argc, const char** argv) {
     if (args.order_ == 1) {
       for (int i = 0; i < args.length_; i++)
         stream << sort1[i] << " ";
-    }
-    else {
+    } else {
       for (int i = args.length_ - 1; i >= 0; i--)
         stream << sort1[i] << " ";
     }
@@ -247,7 +245,7 @@ std::string SortApp::operator()(int argc, const char** argv) {
 
     break;
   }
-  float fTimeStop = static_cast<float>(clock() / (float)CLOCKS_PER_SEC);
+  float fTimeStop = clock() / static_cast<float>(CLOCKS_PER_SEC);
   stream << "Time of sorting:" << fTimeStop - fTimeStart << "sec\n";
   message_ = stream.str();
   return message_;
