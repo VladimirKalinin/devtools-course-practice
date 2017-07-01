@@ -1,4 +1,4 @@
-// Copyright 2017 Mitrokhin Nikita
+// Copyright 2017 Kalinin Vladimir
 
 #include <gtest/gtest.h>
 #include <include/Sort.h>

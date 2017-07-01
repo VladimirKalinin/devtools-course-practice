@@ -1,4 +1,4 @@
-// Copyright 2017 Mitrokhin Nikita
+// Copyright 2017 Kalinin Vladimir
 
 #ifndef MODULES_SORT_INCLUDE_SORT_H_
 #define MODULES_SORT_INCLUDE_SORT_H_

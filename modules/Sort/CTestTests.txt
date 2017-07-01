@@ -21,7 +21,7 @@ set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
 
 add_test(
     NAME ${prefix}_can_Check_Number_Of_Arguments
-    COMMAND ${APPLICATION} 1 2
+    COMMAND ${APPLICATION} 2 1 1 3 5
 )
 set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
     PASS_REGULAR_EXPRESSION "Error: Arguments count should be equal array_length plus 2."
@@ -29,7 +29,7 @@ set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
 
 add_test(
     NAME ${prefix}_can_Detect_Wrong_Number_Format
-    COMMAND ${APPLICATION} 4 2 2 3 sd 2
+    COMMAND ${APPLICATION}  2 1 blblbl 1
 )
 set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
     PASS_REGULAR_EXPRESSION "Wrong number format!"
@@ -69,7 +69,7 @@ set_tests_properties (${prefix}_can_Detect_Wrong_Number_Function PROPERTIES
 
 add_test(
     NAME ${prefix}_work_Quick_Sort
-    COMMAND ${APPLICATION} 3 1 3 2 1
+    COMMAND ${APPLICATION} 3 1 1 1 1 3 2
 )
 set_tests_properties (${prefix}_work_Quick_Sort PROPERTIES
     PASS_REGULAR_EXPRESSION "Sorted array: 1 2 3"
@@ -77,7 +77,7 @@ set_tests_properties (${prefix}_work_Quick_Sort PROPERTIES
 
 add_test(
     NAME ${prefix}_work_Paste_Sort
-    COMMAND ${APPLICATION} 3 2 3 2 1
+    COMMAND ${APPLICATION} 3 2 1 1 1 3 2
 )
 set_tests_properties (${prefix}_work_Paste_Sort PROPERTIES
     PASS_REGULAR_EXPRESSION "Sorted array: 1 2 3"
@@ -85,7 +85,7 @@ set_tests_properties (${prefix}_work_Paste_Sort PROPERTIES
 
 add_test(
     NAME ${prefix}_work_Choice_Sort
-    COMMAND ${APPLICATION} 3 3 3 2 1
+    COMMAND ${APPLICATION} 3 3 1 1 1 3 2
 )
 set_tests_properties (${prefix}_work_Choice_Sort PROPERTIES
     PASS_REGULAR_EXPRESSION "Sorted array: 1 2 3"
@@ -93,8 +93,40 @@ set_tests_properties (${prefix}_work_Choice_Sort PROPERTIES
 
 add_test(
     NAME ${prefix}_work_Merge_Sort
-    COMMAND ${APPLICATION} 3 4 3 2 1
+    COMMAND ${APPLICATION} 3 4 1 1 1 3 2
 )
 set_tests_properties (${prefix}_work_Merge_Sort PROPERTIES
     PASS_REGULAR_EXPRESSION "Sorted array: 1 2 3"
     LABELS "${MODULE}")
+	
+add_test(
+    NAME ${prefix}Is_Checking_Choosen_Number_Of_Mode
+    COMMAND ${APPLICATION} 3 2 3 1 1 3 2
+)
+set_tests_properties (${prefix}_work_Merge_Sort PROPERTIES
+    PASS_REGULAR_EXPRESSION "Error: Mode number should be between 1 or 2"
+    LABELS "${MODULE}")	
+		
+add_test(
+    NAME ${prefix}Is_Checking_Choosen_Number_Of_Order
+    COMMAND ${APPLICATION} 3 2 1 5 1 3 2
+)
+set_tests_properties (${prefix}_work_Merge_Sort PROPERTIES
+    PASS_REGULAR_EXPRESSION "Error: Order number should be between 1 or 2"
+    LABELS "${MODULE}")	
+		
+add_test(
+    NAME ${prefix}Is_Checking_File_Open
+    COMMAND ${APPLICATION} 2 1 2 1 efwef
+)
+set_tests_properties (${prefix}_work_Merge_Sort PROPERTIES
+    PASS_REGULAR_EXPRESSION "Error: Incorrect file path"
+    LABELS "${MODULE}")	
+		
+add_test(
+    NAME ${prefix}Can_Sort_In_The_Descending_Order
+    COMMAND ${APPLICATION} 3 1 1 2 1 3 2
+)
+set_tests_properties (${prefix}_work_Merge_Sort PROPERTIES
+    PASS_REGULAR_EXPRESSION "Sorted array: 3 2 1"
+    LABELS "${MODULE}")	

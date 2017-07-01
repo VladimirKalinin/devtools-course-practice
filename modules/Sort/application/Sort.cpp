@@ -1,4 +1,4 @@
-// Copyright Kildishev Maxim 2017
+// Copyright 2017 Kalinin Vladimir
 
 #include <stdio.h>
 #include <stdlib.h>
