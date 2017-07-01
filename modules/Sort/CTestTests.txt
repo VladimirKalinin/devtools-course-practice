@@ -119,7 +119,7 @@ add_test(
     NAME ${prefix}Is_Checking_File_Open
     COMMAND ${APPLICATION} 2 1 2 1 efwef
 )
-set_tests_properties (${prefix}_work_Merge_Sort PROPERTIES
+set_tests_properties (${prefix}Is_Checking_File_Open PROPERTIES
     PASS_REGULAR_EXPRESSION "Error: Incorrect file path"
     LABELS "${MODULE}")	
 		
