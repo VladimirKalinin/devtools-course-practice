@@ -3,6 +3,7 @@
 #include "include/Sort_app.h"
 #include "include/Sort.h"
 #include <stdio.h>
+#include <time.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
@@ -10,7 +11,6 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
-#include <time.h>
 
 SortApp::SortApp() : message_("") {}
 
@@ -18,11 +18,13 @@ void SortApp::help(const char* appname, const char* message) {
   message_ = std::string(message) +
     "This is a sort application.\n\n" +
     "Please provide arguments in one of the following formats:\n\n" +
-    " $ " + appname + " <length_> <sort_type_> <mode_> <order_> <array_elem_1> ..." +
+    " $ " + appname +
+    " <length_> <sort_type_> <mode_> <order_> <array_elem_1> ..." +
 
     " <array_elem_length>\n" +
     "or\n" +
-    " $ " + appname + " <length_> <sort_type_> <mode <order_> <file_with_array.txt path>\n\n" +
+    " $ " + appname + 
+    " <length_> <sort_type_> <mode <order_> <file_with_array.txt path>\n\n" +
 
     "Where all arguments is a int-precision numbers, " +
     " and <sort_type_> is a choice of the kind of sort:\n" +
@@ -84,12 +86,13 @@ bool SortApp::validateNumberOfOrder(const char** argv) {
 }
 
 bool SortApp::validateNumberOfArguments(int argc, const char** argv) {
-  if (parseInt(argv[3]) == 1)
+  if (parseInt(argv[3]) == 1) {
     if (parseInt(argv[1]) != (argc - 5)) {
       help(argv[0],
         "Error: Arguments count should be equal array_length plus 4.\n\n");
       return false;
     }
+  }
   return true;
 }
 
@@ -155,8 +158,7 @@ std::string SortApp::operator()(int argc, const char** argv) {
 
   args.array_ = new int[args.length_];
 
-  if (args.mode_ == 1)
-  {
+  if (args.mode_ == 1) {
     try {
       for (int i = 0; i < args.length_; i++)
         args.array_[i] = parseInt(argv[5 + i]);
@@ -164,18 +166,14 @@ std::string SortApp::operator()(int argc, const char** argv) {
     catch (std::string& str) {
       return str;
     }
-  }
-  else
-  {
+  } else {
     if (!validateFileOpen(argv))
       return message_;
-    else
-    {
+    else {
     args.path_ = std::string(argv[5]);
     std::ifstream fin(args.path_);
       try {
-        for (int i = 0; i < args.length_; i++)
-        {
+        for (int i = 0; i < args.length_; i++) {
           fin >> args.array_[i];
         }
         fin.close();
@@ -188,17 +186,18 @@ std::string SortApp::operator()(int argc, const char** argv) {
 
   std::ostringstream stream;
   Sort sort1(args.array_, args.length_);
-  float fTimeStart = clock() / (float)CLOCKS_PER_SEC;
+  float fTimeStart = static_cast<float>(clock() / (float)CLOCKS_PER_SEC);
   switch (args.sort_type_) {
   case 1:
     sort1.QuickSort(0, args.length_ - 1);
     stream << "Sorted array: ";
-    if (args.order_ == 1)
+    if (args.order_ == 1){
       for (int i = 0; i < args.length_; i++)
         stream << sort1[i] << " ";
-    else
+    } else {
       for (int i = args.length_ - 1; i >= 0; i--)
         stream << sort1[i] << " ";
+    }
     stream << "\n";
 
     break;
@@ -206,12 +205,14 @@ std::string SortApp::operator()(int argc, const char** argv) {
   case 2:
     sort1.PasteSort();
     stream << "Sorted array: ";
-    if (args.order_ == 1)
+    if (args.order_ == 1) {
       for (int i = 0; i < args.length_; i++)
         stream << sort1[i] << " ";
-    else
+    }
+    else {
       for (int i = args.length_ - 1; i >= 0; i--)
         stream << sort1[i] << " ";
+    }
     stream << "\n";
 
     break;
@@ -219,12 +220,14 @@ std::string SortApp::operator()(int argc, const char** argv) {
   case 3:
     sort1.ChoiceSort();
     stream << "Sorted array: ";
-    if (args.order_ == 1)
+    if (args.order_ == 1) {
       for (int i = 0; i < args.length_; i++)
         stream << sort1[i] << " ";
-    else
+    }
+    else {
       for (int i = args.length_ - 1; i >= 0; i--)
         stream << sort1[i] << " ";
+    }
     stream << "\n";
 
     break;
@@ -232,17 +235,19 @@ std::string SortApp::operator()(int argc, const char** argv) {
   case 4:
     sort1.MergeSort(0, args.length_ - 1);
     stream << "Sorted array: ";
-    if (args.order_ == 1)
+    if (args.order_ == 1) {
       for (int i = 0; i < args.length_; i++)
         stream << sort1[i] << " ";
-    else
+    }
+    else {
       for (int i = args.length_ - 1; i >= 0; i--)
         stream << sort1[i] << " ";
+    }
     stream << "\n";
 
     break;
   }
-  float fTimeStop = clock() / (float)CLOCKS_PER_SEC;
+  float fTimeStop = static_cast<float>(clock() / (float)CLOCKS_PER_SEC);
   stream << "Time of sorting:" << fTimeStop - fTimeStart << "sec\n";
   message_ = stream.str();
   return message_;
