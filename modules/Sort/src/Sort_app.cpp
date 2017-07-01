@@ -171,7 +171,6 @@ std::string SortApp::operator()(int argc, const char** argv) {
       return message_;
     } else {
     args.path_ = std::string(argv[5]);
-    char buff[50];
     std::ifstream fin(args.path_);
     for (int i = 0; i < args.length_; i++) {
       fin >> args.array_[i];
