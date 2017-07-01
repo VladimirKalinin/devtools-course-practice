@@ -222,8 +222,7 @@ std::string SortApp::operator()(int argc, const char** argv) {
     if (args.order_ == 1) {
       for (int i = 0; i < args.length_; i++)
         stream << sort1[i] << " ";
-    }
-    else {
+    } else {
       for (int i = args.length_ - 1; i >= 0; i--)
         stream << sort1[i] << " ";
     }
